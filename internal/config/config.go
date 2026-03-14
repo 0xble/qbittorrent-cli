@@ -19,6 +19,7 @@ var (
 	Compare    []domain.QbitConfig
 	Reannounce domain.ReannounceSettings
 	Rules      domain.Rules
+	Add        domain.AddConfig
 )
 
 // InitConfig initialize config
@@ -60,4 +61,5 @@ func InitConfig() {
 	Compare = Config.Compare
 	Reannounce = Config.Reannounce
 	Rules = Config.Rules
+	Add = Config.Add
 }
