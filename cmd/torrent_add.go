@@ -32,19 +32,21 @@ const (
 // RunTorrentAdd cmd to add torrents
 func RunTorrentAdd() *cobra.Command {
 	var (
-		dry           bool
-		paused        bool
-		skipHashCheck bool
-		removeStalled bool
-		savePath      string
-		category      string
-		tags          []string
-		ignoreRules   bool
-		uploadLimit   uint64
-		downloadLimit uint64
-		stopCondition string
-		sleep         time.Duration
-		recheck       bool
+		dry            bool
+		paused         bool
+		skipHashCheck  bool
+		sequential     bool
+		firstLastPiece bool
+		removeStalled  bool
+		savePath       string
+		category       string
+		tags           []string
+		ignoreRules    bool
+		uploadLimit    uint64
+		downloadLimit  uint64
+		stopCondition  string
+		sleep          time.Duration
+		recheck        bool
 	)
 
 	command := &cobra.Command{
@@ -66,6 +68,8 @@ func RunTorrentAdd() *cobra.Command {
 	command.Flags().BoolVar(&dry, "dry-run", false, "Run without doing anything")
 	command.Flags().BoolVar(&paused, "paused", false, "Add torrent in paused state")
 	command.Flags().BoolVar(&skipHashCheck, "skip-hash-check", false, "Skip hash check")
+	command.Flags().BoolVar(&sequential, "sequential", false, "Download torrent pieces in sequential order")
+	command.Flags().BoolVar(&firstLastPiece, "first-last-piece", false, "Prioritize first and last pieces for preview")
 	command.Flags().BoolVar(&ignoreRules, "ignore-rules", false, "Ignore rules from config")
 	command.Flags().BoolVar(&removeStalled, "remove-stalled", false, "Remove stalled torrents from re-announce")
 	command.Flags().StringVar(&savePath, "save-path", "", "Add torrent to the specified path")
@@ -118,6 +122,20 @@ func RunTorrentAdd() *cobra.Command {
 		}
 		if skipHashCheck {
 			options["skip_checking"] = "true"
+		}
+		if command.Flags().Changed("sequential") {
+			if sequential {
+				options["sequentialDownload"] = "true"
+			}
+		} else if config.Add.Sequential {
+			options["sequentialDownload"] = "true"
+		}
+		if command.Flags().Changed("first-last-piece") {
+			if firstLastPiece {
+				options["firstLastPiecePrio"] = "true"
+			}
+		} else if config.Add.FirstLastPiece {
+			options["firstLastPiecePrio"] = "true"
 		}
 		if savePath != "" {
 			// options["savepath"] = savePath

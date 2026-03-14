@@ -28,3 +28,9 @@ login      = "user"
 password   = "password"
 #basicUser = "user"
 #basicPass = "password"
+
+[add]
+# download pieces in sequential order by default, useful for video streaming
+sequential = false
+# prioritize first and last pieces for all new torrents
+first_last_piece = false
