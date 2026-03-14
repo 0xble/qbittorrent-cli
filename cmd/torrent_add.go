@@ -123,6 +123,12 @@ func RunTorrentAdd() *cobra.Command {
 		if skipHashCheck {
 			options["skip_checking"] = "true"
 		}
+		if sequential || config.Add.Sequential {
+			options["sequentialDownload"] = "true"
+		}
+		if firstLastPiece || config.Add.FirstLastPiece {
+			options["firstLastPiecePrio"] = "true"
+		}
 		if command.Flags().Changed("sequential") {
 			if sequential {
 				options["sequentialDownload"] = "true"
