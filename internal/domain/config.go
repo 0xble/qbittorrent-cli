@@ -21,10 +21,16 @@ type Rules struct {
 	MaxActiveDownloads int  `mapstructure:"max_active_downloads"`
 }
 
+type AddConfig struct {
+	Sequential     bool `mapstructure:"sequential"`
+	FirstLastPiece bool `mapstructure:"first_last_piece"`
+}
+
 type AppConfig struct {
 	Debug      bool               `mapstructure:"debug"`
 	Qbit       QbitConfig         `mapstructure:"qbittorrent"`
 	Reannounce ReannounceSettings `mapstructure:"reannounce"`
 	Rules      Rules              `mapstructure:"rules"`
+	Add        AddConfig          `mapstructure:"add"`
 	Compare    []QbitConfig       `mapstructure:"compare"`
 }
