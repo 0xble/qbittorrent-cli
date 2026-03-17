@@ -1,0 +1,5 @@
+#!/bin/sh
+set -e
+cd "$(dirname "$0")/.."
+go build -o ~/.local/bin/qbt ./cmd/qbt
+echo "installed qbt from $(git describe --tags --always 2>/dev/null || git rev-parse --short HEAD)"
