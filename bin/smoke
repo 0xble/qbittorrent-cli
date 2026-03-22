@@ -1,0 +1,10 @@
+#!/bin/sh
+set -eu
+
+bin_path="$HOME/.local/bin/qbt"
+
+[ -x "$bin_path" ]
+"$bin_path" version | /usr/bin/grep -Fq 'Version:'
+"$bin_path" help >/dev/null
+
+echo "smoke ok: qbt"
