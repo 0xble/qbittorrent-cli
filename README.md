@@ -94,6 +94,11 @@ Or with only go
 
     go build -o bin/qbt cmd/qbt/main.go
 
+For the 0xble fork-managed install:
+
+    ./bin/upgrade
+    ./bin/smoke
+
 ### Multi-platform with `goreleaser`
 
 Builds with `goreleaser` will also include version info.

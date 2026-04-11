@@ -1,10 +1,12 @@
 #!/bin/sh
 set -eu
 
-bin_path="$HOME/.local/bin/qbt"
+REPO_ROOT=$(cd "$(dirname "$0")/.." && pwd)
+BIN_PATH="${QBT_INSTALL_PATH:-$HOME/.local/bin/qbt}"
+EXPECTED_VERSION=$("$REPO_ROOT/bin/version")
 
-[ -x "$bin_path" ]
-"$bin_path" version | /usr/bin/grep -Fq 'Version:'
-"$bin_path" help >/dev/null
+[ -x "$BIN_PATH" ]
+"$BIN_PATH" version | /usr/bin/grep -Fq "Version: $EXPECTED_VERSION"
+"$BIN_PATH" help >/dev/null
 
 echo "smoke ok: qbt"
