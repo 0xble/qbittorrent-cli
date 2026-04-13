@@ -4,9 +4,12 @@ set -eu
 REPO_ROOT=$(cd "$(dirname "$0")/.." && pwd)
 BIN_PATH="${QBT_INSTALL_PATH:-$HOME/.local/bin/qbt}"
 EXPECTED_VERSION=$("$REPO_ROOT/bin/version")
+EXPECTED_COMMIT=$(git -C "$REPO_ROOT" rev-parse --short HEAD)
+VERSION_OUTPUT=$("$BIN_PATH" version)
 
 [ -x "$BIN_PATH" ]
-"$BIN_PATH" version | /usr/bin/grep -Fq "Version: $EXPECTED_VERSION"
+printf '%s\n' "$VERSION_OUTPUT" | /usr/bin/grep -Fq "Version: $EXPECTED_VERSION"
+printf '%s\n' "$VERSION_OUTPUT" | /usr/bin/grep -Fq "Commit: $EXPECTED_COMMIT"
 "$BIN_PATH" help >/dev/null
 
 echo "smoke ok: qbt"
