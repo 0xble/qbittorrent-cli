@@ -4,5 +4,8 @@
 .qbt.toml
 .devcontainer
 dist
-bin
+bin/*
+!bin/upgrade
+!bin/smoke
+!bin/version
 testdata
